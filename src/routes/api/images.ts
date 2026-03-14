@@ -29,7 +29,11 @@ router.get('/', async (req: Request, res: Response): Promise<void> => {
   }
 
   try {
-    const outputPath = await processImage(imageName as string, widthNum, heightNum);
+    const outputPath = await processImage(
+      imageName as string,
+      widthNum,
+      heightNum
+    );
     res.sendFile(outputPath);
   } catch (error) {
     const message = error instanceof Error ? error.message : `${error}`;
@@ -39,7 +43,6 @@ router.get('/', async (req: Request, res: Response): Promise<void> => {
     }
     res.status(500).send(message);
   }
-
-})
+});
 
 export default router;

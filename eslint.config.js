@@ -13,18 +13,18 @@ module.exports = [
       parser: tseslint.parser,
       parserOptions: {
         ecmaVersion: 'latest',
-        sourceType: 'module'
-      }
+        sourceType: 'module',
+      },
     },
     plugins: {
       '@typescript-eslint': tseslint.plugin,
-      prettier: prettierPlugin
+      prettier: prettierPlugin,
     },
     rules: {
-      'prettier/prettier': 'error'
-    }
+      'prettier/prettier': 'error',
+    },
   },
   {
-    ignores: ['dist/**', 'node_modules/**']
-  }
+    ignores: ['dist/**', 'node_modules/**'],
+  },
 ];

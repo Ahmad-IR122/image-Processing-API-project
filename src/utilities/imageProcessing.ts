@@ -26,9 +26,12 @@ const processImage = async (
   }
 
   if (!fs.existsSync(outputPath)) {
-    await sharp(inputPath).resize(width, height).jpeg({ quality: 90 }).toFile(outputPath);
+    await sharp(inputPath)
+      .resize(width, height)
+      .jpeg({ quality: 90 })
+      .toFile(outputPath);
   }
-  
+
   return outputPath;
 };
 
