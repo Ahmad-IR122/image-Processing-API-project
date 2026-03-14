@@ -1,7 +1,7 @@
 import supertest from 'supertest';
 import fs from 'fs';
 import path from 'path';
-import app from '../src/index';
+import app from '../src/server';
 
 const request = supertest(app);
 const imagesDir = path.join(process.cwd(), 'assets/images');
@@ -19,21 +19,21 @@ describe('API /api/images', () => {
 
   it('returns 400 for invalid dimensions', async () => {
     const res = await request.get(
-      '/api/images?imageName=fjord&width=-1&height=200'
+      '/api/images?filename=fjord&width=-1&height=200'
     );
     expect(res.status).toBe(400);
   });
 
   it('returns 404 for non-existent image', async () => {
     const res = await request.get(
-      '/api/images?imageName=doesnotexist&width=200&height=200'
+      '/api/images?filename=doesnotexist&width=200&height=200'
     );
     expect(res.status).toBe(404);
   });
 
   it('returns 200 and serves an image for valid request', async () => {
     const res = await request.get(
-      '/api/images?imageName=fjord&width=200&height=200'
+      '/api/images?filename=fjord&width=200&height=200'
     );
     expect(res.status).toBe(200);
     expect(res.headers['content-type']).toContain('image');
@@ -41,7 +41,7 @@ describe('API /api/images', () => {
 
   it('uses cache on second request (same dimensions)', async () => {
     const res1 = await request.get(
-      '/api/images?imageName=fjord&width=220&height=180'
+      '/api/images?filename=fjord&width=220&height=180'
     );
     expect(res1.status).toBe(200);
 
@@ -50,7 +50,7 @@ describe('API /api/images', () => {
 
     const stats1 = fs.statSync(cached);
 
-    await request.get('/api/images?imageName=fjord&width=220&height=180');
+    await request.get('/api/images?filename=fjord&width=220&height=180');
 
     const stats2 = fs.statSync(cached);
     expect(stats2.mtimeMs).toBe(stats1.mtimeMs);

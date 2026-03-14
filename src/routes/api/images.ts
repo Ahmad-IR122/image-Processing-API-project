@@ -4,9 +4,16 @@ import processImage from '../../utilities/imageProcessing';
 const router = express.Router();
 
 router.get('/', async (req: Request, res: Response): Promise<void> => {
-  const { imageName, width, height } = req.query;
-  if (!imageName) {
-    res.status(400).send('Missing required parameter: imageName');
+  const { imageName, filename, width, height } = req.query;
+  const resolvedName =
+    typeof imageName === 'string'
+      ? imageName
+      : typeof filename === 'string'
+        ? filename
+        : undefined;
+
+  if (!resolvedName) {
+    res.status(400).send('Missing required parameter: imageName or filename');
     return;
   }
 
@@ -29,11 +36,7 @@ router.get('/', async (req: Request, res: Response): Promise<void> => {
   }
 
   try {
-    const outputPath = await processImage(
-      imageName as string,
-      widthNum,
-      heightNum
-    );
+    const outputPath = await processImage(resolvedName, widthNum, heightNum);
     res.sendFile(outputPath);
   } catch (error) {
     const message = error instanceof Error ? error.message : `${error}`;

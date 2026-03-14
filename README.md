@@ -4,7 +4,7 @@
 
 This project is a Node.js + Express + TypeScript API that resizes images on demand using Sharp. It reads source images from `assets/images`, creates cached thumbnails in `assets/images/thumb`, and serves the processed image back to the client.
 
-# Features
+## Features
 
 - Resize images on the fly.
 - Cache resized images to improve performance.
@@ -28,7 +28,8 @@ image-Processing-API-project/
     apiSpec.ts
     imageSpec.ts
   src/
-    index.ts               # app entry point
+    index.ts               # server startup
+    server.ts              # Express app setup
     routes/
       api/
         images.ts          # /api/images route
@@ -44,12 +45,12 @@ Base URL: `http://localhost:3000`
 
 Endpoint: `GET /api/images`
 
-Required query parameters: `imageName` (without extension, e.g. `fjord`), `width` (positive integer), `height` (positive integer).
+Required query parameters: `imageName` or `filename` (without extension, e.g. `fjord`), `width` (positive integer), `height` (positive integer).
 
 Example:
 
 ```bash
-curl "http://localhost:3000/api/images?imageName=fjord&width=200&height=200"
+curl "http://localhost:3000/api/images?filename=fjord&width=200&height=200"
 ```
 
 Optional static access to cached thumbnails: `GET /thumb/<imageName>_<width>x<height>.jpg` (example: `http://localhost:3000/thumb/fjord_200x200.jpg`).

@@ -4,13 +4,13 @@
   "description": "Image processing API using Node.js, Express, TypeScript, Sharp, Jasmine, ESLint, and Prettier",
   "main": "dist/src/index.js",
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/src/index.js",
-    "dev": "nodemon --watch src --ext ts --exec ts-node src/index.ts",
-    "test": "npm run build && jasmine --config=spec/support/jasmine.json",
-    "lint": "eslint . --ext .ts",
-    "format": "prettier --write ."
-  },
+  "build": "tsc",
+  "start": "node dist/src/index.js",
+  "dev": "nodemon --watch src --ext ts --exec ts-node src/index.ts",
+  "test": "npm run build && npx jasmine --config=spec/support/jasmine.json",
+  "lint": "npx eslint . --ext .ts",
+  "format": "npx prettier --write ."
+},
   "keywords": [
     "node",
     "express",
