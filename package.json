@@ -7,7 +7,7 @@
     "build": "tsc",
     "start": "node dist/src/index.js",
     "dev": "nodemon --watch src --ext ts --exec ts-node src/index.ts",
-    "test": "npm run build && jasmine",
+    "test": "npm run build && jasmine --config=spec/support/jasmine.json",
     "lint": "eslint . --ext .ts",
     "format": "prettier --write ."
   },

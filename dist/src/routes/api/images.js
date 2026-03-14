@@ -31,7 +31,12 @@ router.get('/', async (req, res) => {
         res.sendFile(outputPath);
     }
     catch (error) {
-        res.status(500).send(`Internal error: ${error}`);
+        const message = error instanceof Error ? error.message : `${error}`;
+        if (message.startsWith('Input image not found')) {
+            res.status(404).send(message);
+            return;
+        }
+        res.status(500).send(message);
     }
 });
 exports.default = router;

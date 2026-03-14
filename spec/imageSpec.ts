@@ -2,7 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import processImage from '../src/utilities/imageProcessing';
 
-const thumbDir = path.resolve(__dirname, '../images/thumb');
+const imagesDir = path.join(process.cwd(), 'assets/images');
+const thumbDir = path.join(imagesDir, 'thumb');
 
 describe('processImage utility', () => {
   beforeAll(() => {

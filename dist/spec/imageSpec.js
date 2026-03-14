@@ -6,7 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const imageProcessing_1 = __importDefault(require("../src/utilities/imageProcessing"));
-const thumbDir = path_1.default.resolve(__dirname, '../images/thumb');
+const imagesDir = path_1.default.join(process.cwd(), 'assets/images');
+const thumbDir = path_1.default.join(imagesDir, 'thumb');
 describe('processImage utility', () => {
     beforeAll(() => {
         if (!fs_1.default.existsSync(thumbDir))

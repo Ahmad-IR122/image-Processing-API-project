@@ -32,7 +32,12 @@ router.get('/', async (req: Request, res: Response): Promise<void> => {
     const outputPath = await processImage(imageName as string, widthNum, heightNum);
     res.sendFile(outputPath);
   } catch (error) {
-    res.status(500).send(` ${error}`);
+    const message = error instanceof Error ? error.message : `${error}`;
+    if (message.startsWith('Input image not found')) {
+      res.status(404).send(message);
+      return;
+    }
+    res.status(500).send(message);
   }
 
 })
