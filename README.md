@@ -76,7 +76,7 @@ GET /api/images
 ### Example Request
 
 ```bash
-curl "http://localhost:3000/api/imageName?filename=fjord&width=200&height=200"
+curl "http://localhost:3000/api/images?imageName=fjord&width=300&height=300"
 ```
 
 ### Example in Browser
