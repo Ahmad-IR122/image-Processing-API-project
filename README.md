@@ -1,17 +1,28 @@
-# Image Processing API
+# 🖼️ Image Processing API
 
-## Project Description
+A simple and efficient **Node.js + Express + TypeScript API** for resizing images on demand using **Sharp**.
+The API reads original images from `assets/images`, generates resized versions, stores them in a cache folder, and returns the processed image to the client. ⚡
 
-This project is a Node.js + Express + TypeScript API that resizes images on demand using Sharp. It reads source images from `assets/images`, creates cached thumbnails in `assets/images/thumb`, and serves the processed image back to the client.
+---
 
-## Features
+## ✨ Project Description
 
-- Resize images on the fly.
-- Cache resized images to improve performance.
-- Validation for missing/invalid parameters.
-- Automated tests with Jasmine & Supertest.
+This project was built to provide an easy way to resize images dynamically through an API endpoint.
+Instead of creating multiple image sizes manually, the server handles image processing automatically and caches the results for faster future requests.
 
-## File Structure
+---
+
+## 🚀 Features
+
+* 📏 Resize images on the fly
+* ⚡ Cache resized images for better performance
+* ✅ Validate missing or invalid query parameters
+* 🧪 Automated testing with **Jasmine** and **Supertest**
+* 🗂️ Organized project structure using **TypeScript**
+
+---
+
+## 📁 File Structure
 
 ```text
 image-Processing-API-project/
@@ -39,49 +50,137 @@ image-Processing-API-project/
   tsconfig.json
 ```
 
-## Usage
+---
 
-Base URL: `http://localhost:3000`
+## 🛠️ Usage
 
-Endpoint: `GET /api/images`
-
-Required query parameters: `imageName` or `filename` (without extension, e.g. `fjord`), `width` (positive integer), `height` (positive integer).
-
-Example:
+### Base URL
 
 ```bash
-curl "http://localhost:3000/api/images?filename=fjord&width=200&height=200"
+http://localhost:3000
 ```
 
-Optional static access to cached thumbnails: `GET /thumb/<imageName>_<width>x<height>.jpg` (example: `http://localhost:3000/thumb/fjord_200x200.jpg`).
+### Endpoint
 
-## How To Run And Test
+```bash
+GET /api/images
+```
 
-Install dependencies:
+### Required Query Parameters
+
+* `imageName` → image name without extension
+  Example: `fjord`
+* `width` → positive integer
+* `height` → positive integer
+
+### Example Request
+
+```bash
+curl "http://localhost:3000/api/imageName?filename=fjord&width=200&height=200"
+```
+
+### Example in Browser
+
+```bash
+http://localhost:3000/api/images?imageName=fjord&width=300&height=300
+```
+
+---
+
+## 🖼️ Cached Thumbnails
+
+The API also allows access to generated thumbnails directly from the cache folder.
+
+### Example
+
+```bash
+GET /thumb/<imageName>_<width>x<height>.jpg
+```
+
+Example URL:
+
+```bash
+http://localhost:3000/thumb/fjord_200x200.jpg
+```
+
+---
+
+## ▶️ How To Run The Project
+
+### 1) Install dependencies
 
 ```bash
 npm install
 ```
 
-Run in development (auto-reload):
+### 2) Run in development mode
 
 ```bash
 npm run dev
 ```
 
-Build and start the production server:
+### 3) Build the project
 
 ```bash
 npm run build
+```
+
+### 4) Start the production server
+
+```bash
 npm start
 ```
 
-Run tests:
+---
+
+## 🧪 Run Tests
+
+To execute all tests:
 
 ```bash
 npm test
 ```
 
-## Project Conclusion
+---
 
-The API provides a clean, testable pipeline for resizing and caching images. It validates inputs, generates thumbnails only once per size, and exposes a simple HTTP interface that can be extended with additional formats or routes.
+## ✅ Validation Rules
+
+The API checks for:
+
+* Missing filename
+* Missing width or height
+* Non-numeric values
+* Negative or zero values
+* Requesting an image that does not exist
+
+This helps make the API more reliable and user-friendly. 🔒
+
+---
+
+## 💡 Example Workflow
+
+1. The client sends a request with `filename`, `width`, and `height`
+2. The server checks if a resized version already exists in `thumb/`
+3. If it exists, the cached image is returned immediately ⚡
+4. If not, the image is resized using **Sharp**
+5. The new thumbnail is saved and then returned to the client
+
+---
+
+## 📦 Technologies Used
+
+* **Node.js**
+* **Express**
+* **TypeScript**
+* **Sharp**
+* **Jasmine**
+* **Supertest**
+* **ESLint**
+* **Prettier**
+
+---
+
+## 🎯 Project Conclusion
+
+This API provides a clean and testable solution for image resizing and caching.
+It improves performance by avoiding repeated processing for the same image size and offers a simple HTTP interface that can be expanded in the future with more features such as additional formats, quality controls, or new routes. 🚀
